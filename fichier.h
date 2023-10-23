@@ -8,18 +8,21 @@
 typedef struct s_d_cell
 {
     int value;
-    struct s_d_cell *next_0;
-    struct s_d_cell *next_1;
+    int level;
+    struct s_d_cell **next;
 } t_d_cell;
 
 
 typedef struct s_d_list
 {
-    t_d_cell *head_0;
-    t_d_cell *head_1;
+    int max_level;
+    t_d_cell **head;
 } t_d_list;
 
 
-t_d_cell* createCell(int value);
+t_d_cell* createCell(int value,int hauteur);
+t_d_list* createList(int value);
+void displayList(t_d_list list);
+void displayCell(t_d_cell* list,int hauteur);
 
 #endif //UNTITLED1_FICHIER_H
