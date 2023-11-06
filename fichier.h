@@ -26,6 +26,6 @@ void displayList(t_d_list list);
 void displayCell(t_d_cell cell,int hauteur);
 void addCelltoList(t_d_list  list,t_d_cell *cell);
 void addheadList(t_d_list* list,t_d_cell* cell);
-void displaylistwithlevel(t_d_list* list, int level);
+void displaylistwithlevel(t_d_list list, int level);
 
 #endif //UNTITLED1_FICHIER_H
