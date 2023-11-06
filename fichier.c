@@ -8,7 +8,12 @@ t_d_cell* createCell(int value,int hauteur)
 {
     t_d_cell * cell = (t_d_cell*)malloc(1*sizeof(t_d_cell));
     cell->value=value;
+    cell->level=hauteur;
     cell->next=(t_d_cell**)malloc(hauteur*sizeof(t_d_cell*));
+    for (int i=0;i<cell->level;i++)
+    {
+        cell->next[i]=NULL;
+    }
     return cell;
 }
 
@@ -16,28 +21,50 @@ t_d_list* createList(int hauteur)
 {
     t_d_list * list=(t_d_list*)malloc(1*sizeof(t_d_list));
     list->head=(t_d_cell**)malloc(hauteur*sizeof(t_d_cell*));
+    for (int i=0;i<hauteur;i++)
+    {
+        list->head[i]=NULL;
+    }
     list->max_level=hauteur;
     return list;
+}
+
+void addheadList(t_d_list* list,t_d_cell* cell)
+{
+    for (int i=0;i<cell->level;i++)
+    {
+        list->head[i]=cell;
+    }
+}
+
+void displaylistwithlevel(t_d_list list, int level)
+{
+    printf("[list head_%d @-]-->",level);
+    t_d_cell* temp = list.head[level];
+    while(temp!=NULL)
+    {
+        printf("[ %d|@-]-->",temp->value);
+        temp=temp->next[level];
+    }
+    printf("NULL\n");
 }
 
 void displayList(t_d_list list)
 {
     for (int i=0;i<list.max_level;i++)
     {
-        printf("[list head_%d @-]-->",i);
-        displayCell(list.head[i],i);
-        printf("NULL\n");
+        displaylistwithlevel(list,i);
     }
 }
 
-void displayCell(t_d_cell* cell,int hauteur)
-{
-    printf("avant le drame");
-    while(cell->next[hauteur]!=NULL)
+
+
+/*    for (int i=0;i<cell->level;i++)
     {
-        printf("apres le drame");
-        printf("[ %d|@-]-->",cell->value);
-        cell=cell->next[hauteur];
-    }
-    printf("[ %d|@-]-->",cell->value);
-}
+        t_d_cell* temp = list.head[i];
+        while(temp->next[i]!=NULL)
+        {
+            temp=temp->next[i];
+        }
+        temp->next[i]=cell;
+    }*/
