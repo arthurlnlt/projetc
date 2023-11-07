@@ -110,5 +110,25 @@ int seekvalue(t_d_list list,int val)
 
 int seekvaluedichotomique(t_d_list list,int valeur_recherchee)
 {
+    for (int i=list.max_level-1;i!=-1;i--)
+    {
+        int n=list.max_level;
+        t_d_cell* searchcell = list.head[i];
+        while(searchcell!=NULL)
+        {
+            if (searchcell->value==valeur_recherchee)
+            {
+                return 1;
+            }
+            searchcell=searchcell->next[i];
+        }
+    }
     return 0;
+
+
+
+
+
+
+
 }
