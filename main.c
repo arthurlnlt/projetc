@@ -7,9 +7,12 @@ int main() {
     addheadList(list,temp);
     displayList(*list);
     addCelltoList(list,temp1);
-    t_d_cell* temp2 = createCell(15,3);
+    t_d_cell* temp2 = createCell(8,2);
     displayList(*list);
     addCelltoList(list,temp2);
+    displayList(*list);
+    t_d_cell* temp3 = createCell(9,3);
+    addCelltoList(list,temp3);
     displayList(*list);
     return 0;
 }

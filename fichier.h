@@ -26,5 +26,7 @@ void displayList(t_d_list list);
 void addCelltoList(t_d_list* list,t_d_cell *cell);
 void addheadList(t_d_list* list,t_d_cell* cell);
 void displaylistwithlevel(t_d_list list, int level);
+int seekvalue(t_d_list list,int valeur_recherchee);
+int seekvaluedichotomique(t_d_list list,int valeur_recherchee);
 
 #endif //UNTITLED1_FICHIER_H

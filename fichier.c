@@ -73,24 +73,45 @@ void addCelltoList(t_d_list* list,t_d_cell *cell)
         else
         {
             t_d_cell *prev = temp;
-            while((temp->value<cell->value) && (temp!=NULL)) // cas apres la head et le cas en fin de liste
+            while((temp->value<cell->value) && (temp->next[i]!=NULL)) // cas apres la head et le cas en fin de liste
             {
                 prev = temp;
                 temp=temp->next[i];
             }
-            cell->next[i]=prev->next[i];
-            temp->next[i]=cell;
+            if (temp->next[i]==NULL && temp->value<cell->value)
+            {
+                printf("ok");
+                temp->next[i]=cell;
+            }
+            else if (temp->next[i]==NULL && temp->value<cell->value){
+                cell->next[i]=temp->next[i];
+                temp->next[i]=cell;
+            }
+            else
+            {
+                cell->next[i]=prev->next[i];
+                prev->next[i]=cell;
+            }
         }
     }
 }
 
-
-/*    for (int i=0;i<cell->level;i++)
+int seekvalue(t_d_list list,int val)
+{
+    for (int i=list.max_level;i!=-1;i++)
     {
-        t_d_cell* temp = list.head[i];
-        while(temp->next[i]!=NULL)
-        {
-            temp=temp->next[i];
+        t_d_cell* researchcell = list.head[i];
+        while(researchcell!=NULL) {
+            if (researchcell->value==val) {
+                return 1;
+            }
+            researchcell = researchcell->next[i];
         }
-        temp->next[i]=cell;
-    }*/
+    }
+    return 0;
+}
+
+int seekvaluedichotomique(t_d_list list,int valeur_recherchee)
+{
+    return 0;
+}
