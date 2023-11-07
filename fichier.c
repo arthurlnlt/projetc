@@ -80,7 +80,6 @@ void addCelltoList(t_d_list* list,t_d_cell *cell)
             }
             if (temp->next[i]==NULL && temp->value<cell->value)
             {
-                printf("ok");
                 temp->next[i]=cell;
             }
             else if (temp->next[i]==NULL && temp->value<cell->value){
