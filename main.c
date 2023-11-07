@@ -14,5 +14,6 @@ int main() {
     t_d_cell* temp3 = createCell(9,3);
     addCelltoList(list,temp3);
     displayList(*list);
+    printf("la valeur est 1 si trouvee et 0 si pas trouvee :  %d",seekvalue(*list,11));
     return 0;
 }

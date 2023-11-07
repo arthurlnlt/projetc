@@ -98,15 +98,12 @@ void addCelltoList(t_d_list* list,t_d_cell *cell)
 
 int seekvalue(t_d_list list,int val)
 {
-    for (int i=list.max_level;i!=-1;i++)
-    {
-        t_d_cell* researchcell = list.head[i];
-        while(researchcell!=NULL) {
-            if (researchcell->value==val) {
-                return 1;
-            }
-            researchcell = researchcell->next[i];
+    t_d_cell* researchcell = list.head[0];
+    while(researchcell!=NULL) {
+        if (researchcell->value==val) {
+            return 1;
         }
+        researchcell = researchcell->next[0];
     }
     return 0;
 }
