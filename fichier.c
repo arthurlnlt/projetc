@@ -57,6 +57,32 @@ void displayList(t_d_list list)
     }
 }
 
+void addCelltoList(t_d_list* list,t_d_cell *cell)
+{
+    for (int i=0;i<cell->level;i++)
+    {
+        t_d_cell* temp=list->head[i];
+        if (list->head[i]==NULL)
+        {
+            list->head[i]=cell;
+        }
+        else if (temp->value>cell->value) {
+            cell->next[i] = temp;
+            list->head[i] = cell;
+        }
+        else
+        {
+            t_d_cell *prev = temp;
+            while((temp->value<cell->value) && (temp!=NULL)) // cas apres la head et le cas en fin de liste
+            {
+                prev = temp;
+                temp=temp->next[i];
+            }
+            cell->next[i]=prev->next[i];
+            temp->next[i]=cell;
+        }
+    }
+}
 
 
 /*    for (int i=0;i<cell->level;i++)
