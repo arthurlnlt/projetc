@@ -4,6 +4,7 @@
 #include "fichier.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include "math.h"
 t_d_cell* createCell(int value,int hauteur)
 {
     t_d_cell * cell = (t_d_cell*)malloc(1*sizeof(t_d_cell));
@@ -20,12 +21,12 @@ t_d_cell* createCell(int value,int hauteur)
 t_d_list* createList(int hauteur)
 {
     t_d_list * list=(t_d_list*)malloc(1*sizeof(t_d_list));
+    list->max_level=hauteur;
     list->head=(t_d_cell**)malloc(hauteur*sizeof(t_d_cell*));
     for (int i=0;i<hauteur;i++)
     {
         list->head[i]=NULL;
     }
-    list->max_level=hauteur;
     return list;
 }
 
@@ -62,7 +63,7 @@ void addCelltoList(t_d_list* list,t_d_cell *cell)
     for (int i=0;i<cell->level;i++)
     {
         t_d_cell* temp=list->head[i];
-        if (list->head[i]==NULL)
+        if (list->head[i]==NULL)        //utilisation fonction addheadcell ??
         {
             list->head[i]=cell;
         }
@@ -73,7 +74,7 @@ void addCelltoList(t_d_list* list,t_d_cell *cell)
         else
         {
             t_d_cell *prev = temp;
-            while((temp->value<cell->value) && (temp->next[i]!=NULL)) // cas apres la head et le cas en fin de liste
+            while((temp->value<cell->value) && (temp->next[i]!=NULL))
             {
                 prev = temp;
                 temp=temp->next[i];
@@ -123,11 +124,31 @@ int seekvaluedichotomique(t_d_list list,int valeur_recherchee)
         }
     }
     return 0;
+}
 
+t_d_list *createonelistfromlist(t_d_list list)
+{
 
-
-
-
-
-
+    int k=(pow(2,list.max_level)-1);
+    int *levels=(int*)malloc(k*sizeof(int));
+    for (int i=0;i<k;i++)
+    {
+        levels[i]=0;
+    }
+    int compteur=2;
+    while(compteur-2<(k/2))         //compteur-2  OU (k/2)+2 ?????
+    {
+        for (int i=compteur-1;i<k;i=i+compteur)
+        {
+            levels[i]+=1;
+        }
+        compteur=compteur*2;
+    }
+    t_d_list* listearetourner = createList(list.max_level);
+    addheadList(listearetourner,createCell(1,levels[0]+1));
+    for (int i=1;i<k;i++)
+    {
+        addCelltoList(listearetourner, createCell(i+1,levels[i]+1));
+    }
+    return listearetourner;
 }
