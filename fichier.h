@@ -29,4 +29,5 @@ void displaylistwithlevel(t_d_list list, int level);
 int seekvalue(t_d_list list,int valeur_recherchee);
 int seekvaluedichotomique(t_d_list list,int valeur_recherchee);
 t_d_list *createonelistfromlist(t_d_list list);
+void displayListWithLevelAlignedDisplay(t_d_list list);
 #endif //UNTITLED1_FICHIER_H

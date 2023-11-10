@@ -33,7 +33,7 @@ int main() {
     addCelltoList(list2,temp9);
     addCelltoList(list2,temp10);
     t_d_list *list3= createonelistfromlist(*list2);
-    displayList(*list3);
+    displayListWithLevelAlignedDisplay(*list3);
     printf("%d val trouve ?\n",seekvaluedichotomique(*list3,7));
 
 

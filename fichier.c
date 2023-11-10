@@ -50,6 +50,31 @@ void displaylistwithlevel(t_d_list list, int level)
     printf("NULL\n");
 }
 
+void displayListWithLevelAlignedDisplay(t_d_list list)
+{
+    displaylistwithlevel(list,0);
+    for (int i=1;i<list.max_level;i++)
+    {
+        t_d_cell* lvl0 = list.head[0];
+        t_d_cell *temp=list.head[i];
+        printf("[list head_%d @-]--",i);
+        while (lvl0!=NULL)
+        {
+            if(temp==lvl0){
+                printf(">[ %d|@-]--",temp->value);
+                temp=temp->next[i];
+                lvl0=lvl0->next[0];
+            }
+            else{
+                printf("----------");
+                lvl0=lvl0->next[0];
+            }
+
+        }
+        printf(">NULL\n");
+    }
+}
+
 void displayList(t_d_list list)
 {
     for (int i=0;i<list.max_level;i++)
