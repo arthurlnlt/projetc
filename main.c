@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "fichier.h"
 #include "math.h"
+#include "timer.h"
 int main() {
     // Liste à niveau vide
     printf("Liste à niveau vide :\n");
@@ -28,7 +29,7 @@ int main() {
     addCelltoList(list,temp7);
     t_d_cell* temp8 = createCell(59,3);
     t_d_cell* temp9= createCell(59,1);
-    t_d_cell* temp10 = createCell(91,3);
+    t_d_cell* temp10 = createCell(91,2);
     addheadList(list2,temp8);
     addCelltoList(list2,temp9);
     addCelltoList(list2,temp10);
@@ -36,7 +37,4 @@ int main() {
     displayListWithLevelAlignedDisplay(*list3);
     printf("%d val trouve ?\n",seekvaluedichotomique(*list3,7));
 
-
-    printf("la valeur est 1 si trouvee et 0 si pas trouvee :  %d",seekvalue(*list,11));
-    return 0;
 }

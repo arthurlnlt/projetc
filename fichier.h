@@ -13,6 +13,23 @@ typedef struct s_d_cell
 } t_d_cell;
 
 
+typedef struct contact_d_cell
+{
+    char* nomETprenom;
+    int level;
+    struct s_d_cell **next;
+} contact_d_cell;
+
+typedef struct rdv_d_cell
+{
+    int* date;
+    int* horaire;
+    int* horairerdv;
+    char* motif;
+    int level;
+    struct s_d_cell **next;
+} rdv_d_cell;
+
 typedef struct s_d_list
 {
     int max_level;
@@ -30,4 +47,6 @@ int seekvalue(t_d_list list,int valeur_recherchee);
 int seekvaluedichotomique(t_d_list list,int valeur_recherchee);
 t_d_list *createonelistfromlist(t_d_list list);
 void displayListWithLevelAlignedDisplay(t_d_list list);
+
+char *scanString();
 #endif //UNTITLED1_FICHIER_H
