@@ -37,4 +37,37 @@ int main() {
     displayListWithLevelAlignedDisplay(*list3);
     printf("%d val trouve ?\n",seekvaluedichotomique(*list3,7));
 
+    FILE* log_file = fopen("log.txt", "w");
+    char format[] = "%d\t%s\t%s\n";
+    int level;
+    char* time_lvl0;
+    char* time_all_levels;
+
+    int i = 7;
+    while (i != 30) {
+        printf("Niveau testé : %d", i);
+        t_d_list *liste = createList(i);
+        liste = createonelistfromlist(*liste);
+        startTimer();
+        for (int k = 0;k < 10000;k++) {
+            seekvalue(*liste, k);
+        }
+        stopTimer();
+        time_lvl0 = getTimeAsString(); // fonction du module timer
+        printf("Recherche classique :");
+        displayTime();
+        startTimer();
+        for (int k = 0;k < 10000;k++) {
+            seekvaluedichotomique(*liste,k);
+        }
+        stopTimer();
+        time_all_levels = getTimeAsString();
+        fprintf(log_file, format, i, time_lvl0, time_all_levels);
+        printf("Recheche dichotomique :");
+        displayTime();
+        i++;
+
+    }
+    fclose(log_file);
+
 }
