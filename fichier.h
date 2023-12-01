@@ -12,30 +12,34 @@ typedef struct s_d_cell
     struct s_d_cell **next;
 } t_d_cell;
 
-
-typedef struct contact_d_cell
-{
-    char* nomETprenom;
-    int level;
-    struct s_d_cell **next;
-} contact_d_cell;
-
-typedef struct rdv_d_cell
-{
-    int* date;
-    int* horaire;
-    int* horairerdv;
-    char* motif;
-    int level;
-    struct s_d_cell **next;
-} rdv_d_cell;
-
 typedef struct s_d_list
 {
     int max_level;
     t_d_cell **head;
 } t_d_list;
 
+typedef struct s_d_rdv_cell
+{
+    int* date;
+    int* horaire;
+    int* dureerdv;
+    char* motifrdv;
+    int level;
+    struct s_d_rdv_cell *next;
+} t_d_rdv_cell;
+
+typedef struct s_d_cell_contact
+{
+    char* nom;
+    char* prenom;
+    struct s_d_cell_contact ** next;
+    t_d_rdv_cell * rendezvous;
+} t_d_cell_contact;
+
+typedef struct s_d_agenda_list
+{
+    t_d_cell_contact **head;
+} t_d_agenda_list;
 
 t_d_cell* createCell(int value,int hauteur);
 t_d_list* createList(int hauteur);
@@ -49,4 +53,11 @@ t_d_list *createonelistfromlist(t_d_list list);
 void displayListWithLevelAlignedDisplay(t_d_list list);
 
 char *scanString();
+t_d_agenda_list * createagenda();
+t_d_rdv_cell* createRdv();
+t_d_cell_contact* createContact();
+void addContactToAgenda(t_d_cell_contact* contact,t_d_agenda_list* agenda);
+void afficher_agenda(t_d_agenda_list list,int level);
+void complete_afficher_agenda(t_d_agenda_list list);
+void modifierstrMajToMin(char* mot);
 #endif //UNTITLED1_FICHIER_H

@@ -4,9 +4,8 @@
 #include "timer.h"
 int main() {
     // Liste à niveau vide
-    printf("Liste à niveau vide :\n");
+   /* printf("Liste à niveau vide :\n");
     t_d_list* list = createList(5);
-    t_d_list* list2 = createList(3);
     displayList(*list);
 
     // Après insertion de cellules à niveau, affichage simple
@@ -30,11 +29,58 @@ int main() {
     t_d_cell* temp8 = createCell(59,3);
     t_d_cell* temp9= createCell(59,1);
     t_d_cell* temp10 = createCell(91,2);
-    addheadList(list2,temp8);
-    addCelltoList(list2,temp9);
-    addCelltoList(list2,temp10);
-    t_d_list *list3= createonelistfromlist(*list2);
-    displayListWithLevelAlignedDisplay(*list3);
-    printf("%d val trouve ?\n",seekvaluedichotomique(*list3,7));
+    addCelltoList(list,temp8);
+    addCelltoList(list,temp9);
+    addCelltoList(list,temp10);
+    t_d_list *list3= createonelistfromlist(*list);
+    displayList(*list);
+    displayList(*list3);
 
+    printf("%d val trouve ?\n",seekvaluedichotomique(*list3,7));
+    FILE *log_file = fopen("log.txt","w");
+    char format[] = "%d\t%s\t%s\n" ;
+    int level;
+    char *time_lvl0;
+    char *time_all_levels;
+    int i = 7;
+    while (i != 18) {
+        printf("Niveau testé : %d\n", i);
+        t_d_list* liste = createList(i);
+        liste = createonelistfromlist(*liste);
+        startTimer();
+        for (int k = 0;k < 10000;k++) {
+            seekvalue(*liste, k);
+        }
+        stopTimer();
+        time_lvl0 = getTimeAsString(); // fonction du module timer
+        printf("Recherche classique :\n");
+        displayTime();
+        startTimer();
+        for (int k = 0;k < 10000;k++) {
+            seekvaluedichotomique(*liste,k);
+        }
+        stopTimer();
+        time_all_levels = getTimeAsString();
+        fprintf(log_file, format, i, time_lvl0, time_all_levels);
+        printf("Recheche dichotomique :\n");
+        displayTime();
+        i++;
+
+    }
+    fclose(log_file);*/
+    t_d_agenda_list * list = createagenda();
+    t_d_cell_contact *contact = createContact();
+    t_d_cell_contact *contact2 = createContact();
+    t_d_cell_contact *contact3 = createContact();
+    t_d_cell_contact *contact4= createContact();
+    addContactToAgenda(contact,list);
+    complete_afficher_agenda(*list);
+    addContactToAgenda(contact2,list);
+    complete_afficher_agenda(*list);
+    printf("contact3\n");
+    addContactToAgenda(contact3,list);
+    complete_afficher_agenda(*list);
+    addContactToAgenda(contact4,list);
+    complete_afficher_agenda(*list);
 }
+// zer -> sdf -> wxc-> aze
