@@ -241,6 +241,7 @@ void modifierstrMajToMin(char* mot)
         }
     }
 }
+//test
 
 //copie chaque niveau de la liste
 void addRdvtoContact(t_d_cell_contact* contact, t_d_rdv_cell* rdv)

@@ -82,5 +82,6 @@ int main() {
     complete_afficher_agenda(*list);
     addContactToAgenda(contact4,list);
     complete_afficher_agenda(*list);
+    //ajout du test
 }
 // zer -> sdf -> wxc-> aze
