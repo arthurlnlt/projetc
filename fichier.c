@@ -1,11 +1,10 @@
-//
-// Created by ryanc on 23/10/2023.
-//
 #include "fichier.h"
 #include <stdlib.h>
 #include "string.h"
 #include <stdio.h>
 #include "math.h"
+#define TAILLE_MAX 10000
+
 t_d_cell* createCell(int value,int hauteur)
 {
     t_d_cell * cell = (t_d_cell*)malloc(1*sizeof(t_d_cell));
@@ -318,6 +317,8 @@ void addContactToAgenda(t_d_cell_contact* contact,t_d_agenda_list* agenda) {
     }
 }
 
+
+
 void afficher_agenda(t_d_agenda_list list,int level){
     printf("[list head_%d @-]-->",level);
     t_d_cell_contact * temp = list.head[level];
@@ -432,4 +433,20 @@ void complete_afficher_agenda(t_d_agenda_list list)
     }
 
 }*/
+
+
+
+void ajouternomsfichier(char fichier[]){
+    char nom[TAILLE_MAX] = "";
+    fichier = fopen(fichier, "r");
+
+    if (fichier != NULL)
+    {
+        while (fgets(nom, TAILLE_MAX, (FILE *) fichier) != NULL){
+            // ajouter la fonction pour ajouter tous les noms aux contacts
+            printf("%s", nom);
+        }
+        fclose((FILE *) fichier);
+    }
+}
 

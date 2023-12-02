@@ -60,4 +60,5 @@ void addContactToAgenda(t_d_cell_contact* contact,t_d_agenda_list* agenda);
 void afficher_agenda(t_d_agenda_list list,int level);
 void complete_afficher_agenda(t_d_agenda_list list);
 void modifierstrMajToMin(char* mot);
+void ajouternomsfichier(char fichier[]);
 #endif //UNTITLED1_FICHIER_H

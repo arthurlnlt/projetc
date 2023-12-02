@@ -68,6 +68,7 @@ int main() {
 
     }
     fclose(log_file);*/
+
     t_d_agenda_list * list = createagenda();
     t_d_cell_contact *contact = createContact();
     t_d_cell_contact *contact2 = createContact();
@@ -82,6 +83,10 @@ int main() {
     complete_afficher_agenda(*list);
     addContactToAgenda(contact4,list);
     complete_afficher_agenda(*list);
+
+    char fichier[] = "C:\\Users\\arthu\\CLionProjects\\projetc\\noms.txt";
+    ajouternomsfichier(fichier);
+
     //ajout du test
 }
 // zer -> sdf -> wxc-> aze
