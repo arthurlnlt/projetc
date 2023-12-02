@@ -84,7 +84,7 @@ int main() {
     addContactToAgenda(contact4,list);
     complete_afficher_agenda(*list);
 
-    char fichier[] = "C:\\Users\\arthu\\CLionProjects\\projetc\\noms.txt";
+    char fichier[] = "noms.txt";
     ajouternomsfichier(fichier);
 
     //ajout du test
