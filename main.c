@@ -68,24 +68,34 @@ int main() {
 
     }
     fclose(log_file);*/
-
     t_d_agenda_list * list = createagenda();
     t_d_cell_contact *contact = createContact();
     t_d_cell_contact *contact2 = createContact();
     t_d_cell_contact *contact3 = createContact();
     t_d_cell_contact *contact4= createContact();
+    t_d_cell_contact *contact5 = createContact();
+    t_d_cell_contact *contact6 = createContact();
+    t_d_cell_contact *contact7 = createContact();
+    t_d_cell_contact *contact8= createContact();
     addContactToAgenda(contact,list);
     complete_afficher_agenda(*list);
     addContactToAgenda(contact2,list);
     complete_afficher_agenda(*list);
-    printf("contact3\n");
     addContactToAgenda(contact3,list);
     complete_afficher_agenda(*list);
     addContactToAgenda(contact4,list);
     complete_afficher_agenda(*list);
+    addContactToAgenda(contact5,list);
+    complete_afficher_agenda(*list);
+    addContactToAgenda(contact6,list);
+    complete_afficher_agenda(*list);
+    addContactToAgenda(contact7,list);
+    complete_afficher_agenda(*list);
+    addContactToAgenda(contact8,list);
+    complete_afficher_agenda(*list);
 
-    char fichier[] = "noms.txt";
-    ajouternomsfichier(fichier);
+    //char fichier[] = "nom.txt";
+    //ajouternomsfichier(fichier);
 
     //ajout du test
 }

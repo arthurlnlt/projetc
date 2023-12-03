@@ -61,4 +61,8 @@ void afficher_agenda(t_d_agenda_list list,int level);
 void complete_afficher_agenda(t_d_agenda_list list);
 void modifierstrMajToMin(char* mot);
 void ajouternomsfichier(char fichier[]);
+void afficher_rendez_vous_contact(t_d_cell_contact contact);
+void insertion_rendez_vous_contact(t_d_cell_contact * contact, t_d_rdv_cell* rdv);
+void supprimer_rendez_vous(t_d_rdv_cell* rdv, int* dateasupprimer);
+
 #endif //UNTITLED1_FICHIER_H

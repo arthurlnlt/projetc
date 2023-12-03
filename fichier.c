@@ -191,7 +191,7 @@ t_d_cell_contact* createContact()
     return contact;
 }
 
-t_d_rdv_cell* createRdv()
+t_d_rdv_cell* createRdv()   //ajout saisie securisee
 {
     t_d_rdv_cell * rdv = (t_d_rdv_cell*) malloc(sizeof(t_d_rdv_cell));
     rdv->date=(int*)malloc(3*sizeof(int));
@@ -240,9 +240,7 @@ void modifierstrMajToMin(char* mot)
         }
     }
 }
-//test
 
-//copie chaque niveau de la liste
 void addRdvtoContact(t_d_cell_contact* contact, t_d_rdv_cell* rdv)
 {
     if (contact->rendezvous==NULL)
@@ -264,60 +262,56 @@ void addContactToAgenda(t_d_cell_contact* contact,t_d_agenda_list* agenda) {
     modifierstrMajToMin(contact->nom);
     t_d_cell_contact *templvl3 = agenda->head[3];
     int i = 0;
-    int j = 4;
+    int j = 3;
     t_d_cell_contact *prev;
     if (agenda->head[0] == NULL) {
-        contact->next = (t_d_cell_contact **) malloc(j * sizeof(t_d_cell_contact *));
-        for (int nb=0;nb<j;nb++)
+        contact->next = (t_d_cell_contact **) malloc((j+1) * sizeof(t_d_cell_contact *));
+        for (int nb=0;nb<=j;nb++)
         {
             agenda->head[nb] = contact;
             contact->next[nb]=NULL;
         }
     }
     else {
-        while (templvl3->next[j-1] != NULL && templvl3->nom[i]<contact->nom[i])
+        while (templvl3!= NULL && templvl3->nom[i]<=contact->nom[i])    //rajouter i<=3 ??
         {
             prev = templvl3;
-            printf("ici");
-            if (templvl3->nom[i] == contact->nom[i]){
-                printf("%s",templvl3->nom);
+            while (templvl3->nom[i] == contact->nom[i] && j>0){
                 j--;
-                templvl3 = templvl3->next[j-1];
                 i++;
-            } else {
-                templvl3 = templvl3->next[j-1];
             }
+            templvl3 = templvl3->next[j];
         }
-        if (templvl3->nom[i]<contact->nom[i])
+        if (templvl3==NULL)
         {
-            prev=templvl3;
-            templvl3->next[j];
+            templvl3=prev;
         }
-        contact->next = (t_d_cell_contact **) malloc(j * sizeof(t_d_cell_contact *));
-        for (int k = 0; k < j; k++) {
+        printf("valeur de j soit la hauteur %d du mot %s\n",j,contact->nom);
+        contact->next = (t_d_cell_contact **) malloc((j+1) * sizeof(t_d_cell_contact *));
+        for (int k = 0; k <= j; k++) {
             contact->next[k] = NULL;
         }
-        for (int k = 0; k < j; k++)
+        for (int k = 0; k <= j; k++)
         {
-            if (contact->nom[i]<templvl3->nom[i])
+            t_d_cell_contact *copie=templvl3;
+            if (contact->nom[i]<agenda->head[k]->nom[i])
             {
                 contact->next[k]=agenda->head[k];
                 agenda->head[k]=contact;
             }
-            else if(contact->nom[i]<templvl3->nom[i])
-            {
-                prev->next[k] = contact;
-                contact->next[k] = templvl3;
-            }
             else
             {
-                templvl3->next[k]=contact;
+                while(copie->next[k]!=NULL)
+                {
+                    copie=copie->next[k];
+                }
+                printf("val de templvl3 %s, %d\n",templvl3->nom,k);
+                printf("val de copie %s\n",copie->nom);
+                copie->next[k]=contact;
             }
         }
     }
 }
-
-
 
 void afficher_agenda(t_d_agenda_list list,int level){
     printf("[list head_%d @-]-->",level);
@@ -332,108 +326,32 @@ void afficher_agenda(t_d_agenda_list list,int level){
 
 void complete_afficher_agenda(t_d_agenda_list list)
 {
-    for (int i=0;i<4;i++)
+    afficher_agenda(list,0);
+    for (int i=1;i<=3;i++)
     {
-        afficher_agenda(list,i);
-    }
-}
-
-/*
- * NE SERT A RIEN (Pour le moment)
- *
- * int seekvalueContact(t_d_agenda_list contact,char* caractere)
-{
-    t_d_cell_contact * researchcell = contact.head[0];
-    int i=0;
-    while(researchcell!=NULL) {
-        if (researchcell->nom[0]==caractere[0]) {
-            if(researchcell->nom[0]==caractere[1])
-            {
-                if(researchcell->nom[0]==caractere[2])
+        t_d_cell_contact * lvl0= list.head[0];
+        t_d_cell_contact *temp=list.head[i];
+        printf("[list head_%d @-]--",i);
+        while (lvl0!=NULL)     //fonctionne de la meme maniere que le aligneddisplay vue en partie 1
+        {
+            if(temp==lvl0){
+                printf(">[ %s|@-]--",temp->nom);
+                temp=temp->next[i];
+                lvl0=lvl0->next[0];
+            }
+            else{
+                printf("-----");
+                for (int k=0;lvl0->nom[k]!='\0';k++)
                 {
-                    return 2;
+                    printf("-");
                 }
-                return 1;
+                printf("----");
+                lvl0=lvl0->next[0];
             }
-            return 0;
         }
-        researchcell = researchcell->next[0];
+        printf(">NULL\n");
     }
-    return 3;
 }
-
- ANCIENNE VERSION DE addContactToAgenda
- void addContactToAgenda(t_d_cell_contact* contact,t_d_agenda_list* agenda)
-{
-    modifierstrMajToMin(contact->nom);
-    int level=0;
-    t_d_cell_contact* templvl3 = agenda->head[3];
-    int i=0;
-    int j=3;
-    t_d_cell_contact * prev;
-    if (agenda->head[0]==NULL)
-    {
-        level=4;
-    }
-    while(templvl3!=NULL && templvl3->nom[i]<contact->nom[i]) //bizzare
-    {
-        printf("test");
-        prev = templvl3;
-        if (templvl3->nom[i]==contact->nom[i])
-        {
-            level=4;    //dans la boucle on parcours de 0 à level-1
-            j--;
-            templvl3=templvl3->next[j];
-            i++;
-        }
-        if (templvl3->nom[i]==contact->nom[i])
-        {
-            level=3;
-            templvl3=prev->next[1];
-            i++;
-            j--;
-        }
-        if (templvl3->nom[i]==contact->nom[i])
-        {
-            level=2;
-            templvl3=prev->next[0];
-            i++;
-            j--;
-        }
-        else
-        {
-            level=1;
-            templvl3=prev->next[0];
-        }
-        templvl3=templvl3->next[j];
-    }
-    free(templvl3);
-    contact->next=(t_d_cell_contact**)malloc(level*sizeof(t_d_cell_contact*));
-    for (int i=0;i<level;i++)
-    {
-        contact->next[i]=NULL;
-    }
-    for (int i=0;i<level;i++)   // trier alphabétiquement
-    {
-        printf("ok");
-        if (agenda->head[i]==NULL)
-        {
-            agenda->head[i]=contact;
-        }
-        else
-        {
-            printf("ok");
-            t_d_cell_contact* templvl = agenda->head[i];
-            while(templvl->nom[0]<contact->nom[0] && templvl!=NULL)
-            {
-                templvl=templvl->next[i];
-            }
-            templvl->next[i]=contact;
-        }
-    }
-
-}*/
-
 
 
 void ajouternomsfichier(char fichier[]){
@@ -450,3 +368,49 @@ void ajouternomsfichier(char fichier[]){
     }
 }
 
+void afficher_rendez_vous_contact(t_d_cell_contact contact)
+{
+    printf("Rendezvous de %s",contact.nom);
+    t_d_rdv_cell* temp = contact.rendezvous;
+    while(temp!=NULL)
+    {
+        printf(" Date : %d/%d/%d\n",temp->date[0],temp->date[1],temp->date[2]);
+        printf("L'heure du rendez vous : %d:%d\n",temp->horaire[0],temp->horaire[1]);
+        printf("Le rendez vous dure : %d %d\n",temp->dureerdv[0],temp->dureerdv[1]);
+        printf("Le motif du rendez vous est %s\n",temp->motifrdv);
+        temp=temp->next;
+    }
+    printf("%s n'a plus de rendez vous ",contact.nom);
+}
+
+void insertion_rendez_vous_contact(t_d_cell_contact * contact, t_d_rdv_cell* rdv)
+{
+    t_d_rdv_cell * temp=contact->rendezvous;
+    while(temp->next!=NULL)
+    {
+        temp=temp->next;
+    }
+    temp->next=rdv;
+}
+
+void supprimer_rendez_vous(t_d_rdv_cell* rdv, int* dateasupprimer)
+{
+    t_d_rdv_cell * prev =rdv;
+    t_d_rdv_cell * temp = rdv;
+    while(temp!=NULL && temp->date[0]!=dateasupprimer[0] && temp->date[1]!=dateasupprimer[1] && temp->date[2]!=dateasupprimer[2])
+    {
+        prev=temp;
+        temp=temp->next;
+    }
+    if (temp==NULL)
+    {
+        printf("date non trouvee\n");
+        free(temp);
+    }
+    else
+    {
+        prev->next=temp->next;
+        temp->next=NULL;
+        free(temp);
+    }
+}
