@@ -414,3 +414,23 @@ void supprimer_rendez_vous(t_d_rdv_cell* rdv, int* dateasupprimer)
         free(temp);
     }
 }
+
+t_d_cell_contact *seekContact(t_d_agenda_list list, char * mot)
+{
+    int compteur;
+    int taille_mot=0;
+    for (int i=0;mot[i]!='\0';i++)
+    {
+        taille_mot++;
+    }
+    t_d_cell_contact * researchcell = list.head[0];
+    while(researchcell!=NULL && compteur!=taille_mot) {
+        compteur=0;
+        for (int i=0;mot[i]==researchcell->nom[i];i++)
+        {
+            compteur++;
+        }
+        researchcell = researchcell->next[0];
+    }
+    return researchcell;
+}

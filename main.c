@@ -1,15 +1,116 @@
 #include <stdio.h>
 #include "fichier.h"
+#include <stdlib.h>
 #include "math.h"
 #include "timer.h"
 int main() {
     // Liste à niveau vide
-   /* printf("Liste à niveau vide :\n");
+    int i=0;
+    t_d_agenda_list* list=createagenda();
+    printf("Bienvenue sur l'AGENDA\n");
+    printf("Veuillez choisir une action :\n"
+           "1- Ajouter un contact\n"
+           "2- Ajouter un rendez-vous a un contact\n"
+           "3- Afficher la liste des contacts present dans l'agenda\n"
+           "4- Afficher les rendez-vous d'un contact\n"
+           "5- Supprimer un rendez-vous\n"
+           "6- Sauvegarder tout les rendez-vous d'un contact\n"
+           "7- Charger tout les rendez-vous d'un contact :\n"
+           "8- Rechercher un contact :\n"
+           "9- Afficher le menu : \n"
+           "10- Quitter l'agenda :\n");
+    while(i!=10)
+    {
+        scanf("%d",&i);
+        if (i==1)
+        {
+            t_d_cell_contact * contact = createContact();
+            addContactToAgenda(contact,list);
+        }
+        else if (i==2)
+        {
+            t_d_rdv_cell * rdv = createRdv();
+            scanf("Saisissez le nom du contact à rechercher :\n");
+            char * mot = scanString();
+            t_d_cell_contact *c = seekContact(*list,mot);
+            insertion_rendez_vous_contact(c,rdv);
+        }
+        else if (i==3)
+        {
+            complete_afficher_agenda(*list);
+        }
+        else if (i==4)
+        {
+            scanf("Saisissez le nom du contact à rechercher :\n");
+            char * mot = scanString();
+            //t_d_cell_contact * c = seekContact(*list,mot);
+            afficher_rendez_vous_contact(*seekContact(*list,mot));
+        }
+        else if (i==5)
+        {
+            printf("Vous voulez supprimer un rendez-vous, mais de quel contact ?\n");
+            char * mot = scanString();
+            t_d_cell_contact * c = seekContact(*list,mot);
+            scanf("Saisissez la date du rendez-vous a supprimer :\n");
+            int * date = (int*)malloc(3*sizeof(int));
+            printf("Ecrivez la date a supprimer sous la forme JOUR ");
+            scanf("%d",&date[0]);
+            printf("Ecrivez la date a supprimer sous la forme MOIS ");
+            scanf("%d",&date[1]);
+            printf("Ecrivez la date a supprimer sous la forme ANNEE ");
+            scanf("%d",&date[2]);
+            supprimer_rendez_vous(c->rendezvous,date);
+        }
+        else if (i==6)
+        {
+
+        }
+        else if (i==7)
+        {
+
+        }
+        else if (i==8)
+        {
+            scanf("Saisissez le nom du contact à rechercher :\n");
+            char * mot = scanString();
+            //t_d_cell_contact * c = seekContact(*list,mot);
+            t_d_cell_contact *c = seekContact(*list,mot);
+            if (c!=NULL)
+            {
+                printf("Le contact est present dans la liste\n");
+            }
+            else
+            {
+                printf("Le contact n'est pas present dans la liste\n");
+            }
+        }
+        else if (i==9)
+        {
+            printf("Veuillez choisir une action :\n"
+                   "1- Ajouter un contact\n"
+                   "2- Ajouter un rendez-vous a un contact\n"
+                   "3- Afficher la liste des contacts present dans l'agenda\n"
+                   "4- Afficher les rendez-vous d'un contact\n"
+                   "5- Supprimer un rendez-vous\n"
+                   "6- Sauvegarder tout les rendez-vous d'un contact\n"
+                   "7- Charger tout les rendez-vous d'un contact :\n"
+                   "8- Rechercher un contact :\n"
+                   "9- Afficher le menu : \n"
+                   "10- Quitter l'agenda :\n");
+        }
+    }
+
+
+
+
+
+
+    /*printf("Liste a niveau vide :\n");
     t_d_list* list = createList(5);
     displayList(*list);
 
     // Après insertion de cellules à niveau, affichage simple
-    printf("Après insertion de cellules à niveau, affichage simple\n");
+    printf("Apres insertion de cellules a niveau, affichage simple\n");
     t_d_cell* temp = createCell(18,4);
     t_d_cell* temp1 = createCell(25,1);
     t_d_cell* temp2 = createCell(31,2);
@@ -36,7 +137,7 @@ int main() {
     displayList(*list);
     displayList(*list3);
 
-    printf("%d val trouve ?\n",seekvaluedichotomique(*list3,7));
+    //printf("%d val trouve ?\n",seekvaluedichotomique(*list3,7));
     FILE *log_file = fopen("log.txt","w");
     char format[] = "%d\t%s\t%s\n" ;
     int level;
@@ -67,8 +168,8 @@ int main() {
         i++;
 
     }
-    fclose(log_file);*/
-    t_d_agenda_list * list = createagenda();
+    fclose(log_file);
+    t_d_agenda_list * liste = createagenda();
     t_d_cell_contact *contact = createContact();
     t_d_cell_contact *contact2 = createContact();
     t_d_cell_contact *contact3 = createContact();
@@ -77,26 +178,26 @@ int main() {
     t_d_cell_contact *contact6 = createContact();
     t_d_cell_contact *contact7 = createContact();
     t_d_cell_contact *contact8= createContact();
-    addContactToAgenda(contact,list);
-    complete_afficher_agenda(*list);
-    addContactToAgenda(contact2,list);
-    complete_afficher_agenda(*list);
-    addContactToAgenda(contact3,list);
-    complete_afficher_agenda(*list);
-    addContactToAgenda(contact4,list);
-    complete_afficher_agenda(*list);
-    addContactToAgenda(contact5,list);
-    complete_afficher_agenda(*list);
-    addContactToAgenda(contact6,list);
-    complete_afficher_agenda(*list);
-    addContactToAgenda(contact7,list);
-    complete_afficher_agenda(*list);
-    addContactToAgenda(contact8,list);
-    complete_afficher_agenda(*list);
+    addContactToAgenda(contact,liste);
+    complete_afficher_agenda(*liste);
+    addContactToAgenda(contact2,liste);
+    complete_afficher_agenda(*liste);
+    addContactToAgenda(contact3,liste);
+    complete_afficher_agenda(*liste);
+    addContactToAgenda(contact4,liste);
+    complete_afficher_agenda(*liste);
+    addContactToAgenda(contact5,liste);
+    complete_afficher_agenda(*liste);
+    addContactToAgenda(contact6,liste);
+    complete_afficher_agenda(*liste);
+    addContactToAgenda(contact7,liste);
+    complete_afficher_agenda(*liste);
+    addContactToAgenda(contact8,liste);
+    complete_afficher_agenda(*liste);
 
     //char fichier[] = "nom.txt";
     //ajouternomsfichier(fichier);
 
-    //ajout du test
+    */
 }
 // zer -> sdf -> wxc-> aze

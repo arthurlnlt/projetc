@@ -64,5 +64,5 @@ void ajouternomsfichier(char fichier[]);
 void afficher_rendez_vous_contact(t_d_cell_contact contact);
 void insertion_rendez_vous_contact(t_d_cell_contact * contact, t_d_rdv_cell* rdv);
 void supprimer_rendez_vous(t_d_rdv_cell* rdv, int* dateasupprimer);
-
+t_d_cell_contact *seekContact(t_d_agenda_list list, char * mot);
 #endif //UNTITLED1_FICHIER_H
