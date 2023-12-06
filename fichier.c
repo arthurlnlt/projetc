@@ -177,7 +177,7 @@ t_d_list *createonelistfromlist(t_d_list list)
         levels[i]=0;
     }
     int compteur=2;
-    while(compteur-2<(k/2))         //compteur-2  OU (k/2)+2 ?????
+    while(compteur-2<(k/2))         //compteur-2  OU (k/2)+2 ????? //azdz
     {
         for (int i=compteur-1;i<k;i=i+compteur)
         {
@@ -196,7 +196,7 @@ t_d_list *createonelistfromlist(t_d_list list)
 
 char* scanString()
 {
-    char* mot=(char*)malloc(sizeof(mot));
+    char* mot=(char*)malloc(80*sizeof(mot));
     fgets(mot,80,stdin);
     mot[strlen(mot)-1]='\0';
     return mot;
@@ -206,9 +206,11 @@ t_d_cell_contact* createContact()
 {
     t_d_cell_contact* contact = (t_d_cell_contact*)malloc(1*sizeof(t_d_cell_contact));
     printf("saisissez votre nom:\n");
-    contact->nom=scanString();
+    scanf("%s",contact->nom);
+    //contact->nom=scanString();
     //printf("Saisissez votre prenom\n");
     //contact->prenom = scanString();
+    contact->rendezvousHead=NULL;
     return contact;
 }
 
@@ -233,9 +235,9 @@ t_d_rdv_cell* createRdv()   //ajout saisie securisee
     printf("Ecrivez la duree sous la forme MINUTE ");
     scanf("%d",&rdv->dureerdv[1]);
     rdv->next=(t_d_rdv_cell *)malloc(rdv->level*sizeof(t_d_rdv_cell ));
-    printf("Saissez le motif du rdv :");
+    printf("Saissez le motif du rdv :\n");
     rdv->motifrdv=(char*)malloc(80*sizeof(char));
-    rdv->motifrdv=scanString();
+    scanf("%s",rdv->motifrdv);
     rdv->next=NULL;
     return rdv;
 }
@@ -260,24 +262,6 @@ void modifierstrMajToMin(char* mot)
         {
             mot[i]+=32;
         }
-    }
-}
-
-void addRdvtoContact(t_d_cell_contact* contact, t_d_rdv_cell* rdv)
-{
-    if (contact->rendezvous==NULL)
-    {
-        contact->rendezvous=rdv;
-    }
-    else
-    {
-        printf("ici");
-        t_d_rdv_cell * temp= contact->rendezvous;
-        while(temp!=NULL)
-        {
-            temp=temp->next;
-        }
-        temp->next=rdv;
     }
 }
 
@@ -394,7 +378,7 @@ void ajouternomsfichier(char fichier[]){
 void afficher_rendez_vous_contact(t_d_cell_contact contact)
 {
     printf("Rendezvous de %s",contact.nom);
-    t_d_rdv_cell* temp = contact.rendezvous;
+    t_d_rdv_cell* temp = contact.rendezvousHead;
     while(temp!=NULL)
     {
         printf(" Date : %d/%d/%d\n",temp->date[0],temp->date[1],temp->date[2]);
@@ -403,17 +387,24 @@ void afficher_rendez_vous_contact(t_d_cell_contact contact)
         printf("Le motif du rendez vous est %s\n",temp->motifrdv);
         temp=temp->next;
     }
-    printf("%s n'a plus de rendez vous ",contact.nom);
+    printf("%s n'a plus de rendez vous \n",contact.nom);
 }
 
 void insertion_rendez_vous_contact(t_d_cell_contact * contact, t_d_rdv_cell* rdv)
 {
-    t_d_rdv_cell * temp=contact->rendezvous;
-    while(temp->next!=NULL)
+    if (contact->rendezvousHead==NULL)
     {
-        temp=temp->next;
+        contact->rendezvousHead=rdv;
     }
-    temp->next=rdv;
+    else
+    {
+        t_d_rdv_cell * temp=contact->rendezvousHead;
+        while(temp->next!=NULL)
+        {
+            temp=temp->next;
+        }
+        temp->next=rdv;
+    }
 }
 
 void supprimer_rendez_vous(t_d_rdv_cell* rdv, int* dateasupprimer)

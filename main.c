@@ -98,11 +98,11 @@ int main() {
                    "9- Afficher le menu : \n"
                    "10- Quitter l'agenda :\n");
         }
-    }*/
+    }
 
 
 
-    /*printf("Liste a niveau vide :\n");*/
+    printf("Liste a niveau vide :\n");
     t_d_list* list = createList(3);
     displayList(*list);
 
@@ -127,7 +127,7 @@ int main() {
     t_d_list *list3= createonelistfromlist(*list);
     displayListWithLevelAlignedDisplay(*list3);
     printf("test");
-    printf(" val = %d", seekvaluedichotomique(*list3,3));
+    printf("La valeur %d est-elle presente dans la liste ?  %d \n",3, seekvaluedichotomique(*list3,3));
 
 
     printf("%d val trouve ?\n",seekvaluedichotomique(*list3,7));
@@ -162,7 +162,7 @@ int main() {
 
     }
     fclose(log_file);
-/*
+
     t_d_agenda_list * liste = createagenda();
     t_d_cell_contact *contact = createContact();
     t_d_cell_contact *contact2 = createContact();
@@ -187,13 +187,17 @@ int main() {
     addContactToAgenda(contact7,liste);
     complete_afficher_agenda(*liste);
     addContactToAgenda(contact8,liste);
-    complete_afficher_agenda(*liste);*/
+    complete_afficher_agenda(*liste);
+    */
 
-    //t_d_cell_contact * c = createContact();
-    //t_d_rdv_cell* rdv =createRdv(); //probleme de creation de rdv
-    //insertion_rendez_vous_contact(c,rdv);
-    //afficher_rendez_vous_contact(*c);
+
     //char fichier[] = "nom.txt";
     //ajouternomsfichier(fichier);
 }
-// zer -> sdf -> wxc-> aze
+/*    t_d_rdv_cell* rdv =createRdv();
+    insertion_rendez_vous_contact(c,rdv);
+    t_d_rdv_cell* rdv2 =createRdv();
+    insertion_rendez_vous_contact(c,rdv2);
+    t_d_rdv_cell* rdv3 =createRdv();
+    insertion_rendez_vous_contact(c,rdv3);
+    afficher_rendez_vous_contact(*c);*/

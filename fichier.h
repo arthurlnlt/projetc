@@ -33,7 +33,7 @@ typedef struct s_d_cell_contact
     char* nom;
     char* prenom;
     struct s_d_cell_contact ** next;
-    t_d_rdv_cell * rendezvous;
+    t_d_rdv_cell * rendezvousHead;
 } t_d_cell_contact;
 
 typedef struct s_d_agenda_list
