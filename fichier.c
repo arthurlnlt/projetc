@@ -15,7 +15,7 @@ t_d_cell* createCell(int value,int hauteur)
     {
         cell->next[i]=NULL;
     }
-    return cell;
+    return cell; //retourne la cellule crée
 }
 
 t_d_list* createList(int hauteur)
