@@ -66,7 +66,7 @@ void displayListWithLevelAlignedDisplay(t_d_list list)
                 lvl0=lvl0->next[0];
             }
             else{
-                printf("-----------");
+                printf("----------");
                 lvl0=lvl0->next[0];
             }
 
@@ -129,18 +129,39 @@ int seekvalue(t_d_list list,int val)
     return 0;
 }
 
-int seekvaluedichotomique(t_d_list list,int valeur_recherchee)
+int recherche_dicho(t_d_list mylist, int val)
 {
-    for (int i=list.max_level-1;i!=-1;i--)  //On part du niveau le plus grand, au niveau le plus petit
+    t_d_cell* temp;
+    t_d_cell * prev;
+    int j=mylist.max_level-1;
+    temp = mylist.head[j];
+    while (temp!=NULL)
     {
-        t_d_cell* searchcell = list.head[i];
-        while(searchcell!=NULL)
+        if (temp->value == val)
         {
-            if (searchcell->value==valeur_recherchee)
-            {
-                return 1;
+            return 1;
+        }
+        else if (temp->value >val && temp == mylist.head[j])
+        {
+            if(j>0){
+                j--;
             }
-            searchcell=searchcell->next[i];
+            temp = mylist.head[j];
+        }
+        else if (val > temp->value)
+        {
+            prev=temp;
+            if(j>0){
+                j--;
+            }
+            temp = temp->next[j];
+        }
+        else
+        {
+            if(j>0){
+                j--;
+            }
+            temp=prev->next[j];
         }
     }
     return 0;
@@ -213,6 +234,7 @@ t_d_rdv_cell* createRdv()   //ajout saisie securisee
     scanf("%d",&rdv->dureerdv[1]);
     rdv->next=(t_d_rdv_cell *)malloc(rdv->level*sizeof(t_d_rdv_cell ));
     printf("Saissez le motif du rdv :");
+    rdv->motifrdv=(char*)malloc(80*sizeof(char));
     rdv->motifrdv=scanString();
     rdv->next=NULL;
     return rdv;
@@ -249,6 +271,7 @@ void addRdvtoContact(t_d_cell_contact* contact, t_d_rdv_cell* rdv)
     }
     else
     {
+        printf("ici");
         t_d_rdv_cell * temp= contact->rendezvous;
         while(temp!=NULL)
         {

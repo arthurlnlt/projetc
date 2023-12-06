@@ -5,7 +5,7 @@
 #include "timer.h"
 int main() {
     // Liste à niveau vide
-    int i=0;
+    /*int i=0;
     t_d_agenda_list* list=createagenda();
     printf("Bienvenue sur l'AGENDA\n");
     printf("Veuillez choisir une action :\n"
@@ -98,27 +98,24 @@ int main() {
                    "9- Afficher le menu : \n"
                    "10- Quitter l'agenda :\n");
         }
-    }
+    }*/
 
 
 
-
-
-
-    /*printf("Liste a niveau vide :\n");
-    t_d_list* list = createList(5);
+    /*printf("Liste a niveau vide :\n");*/
+    t_d_list* list = createList(3);
     displayList(*list);
 
     // Après insertion de cellules à niveau, affichage simple
     printf("Apres insertion de cellules a niveau, affichage simple\n");
-    t_d_cell* temp = createCell(18,4);
+    t_d_cell* temp = createCell(18,3);
     t_d_cell* temp1 = createCell(25,1);
     t_d_cell* temp2 = createCell(31,2);
-    t_d_cell* temp3 = createCell(32,5);
+    t_d_cell* temp3 = createCell(32,2);
     t_d_cell* temp4 = createCell(56,3);
-    t_d_cell* temp5 = createCell(59,5);
-    t_d_cell* temp6 = createCell(59,1);
-    t_d_cell* temp7 = createCell(91,3);
+    t_d_cell* temp5 = createCell(59,2);
+    t_d_cell* temp6 = createCell(78,1);
+    t_d_cell* temp7 = createCell(94,3);
     addheadList(list,temp);
     addCelltoList(list,temp1);
     addCelltoList(list,temp2);
@@ -127,15 +124,11 @@ int main() {
     addCelltoList(list,temp5);
     addCelltoList(list,temp6);
     addCelltoList(list,temp7);
-    t_d_cell* temp8 = createCell(59,3);
-    t_d_cell* temp9= createCell(59,1);
-    t_d_cell* temp10 = createCell(91,2);
-    addCelltoList(list,temp8);
-    addCelltoList(list,temp9);
-    addCelltoList(list,temp10);
     t_d_list *list3= createonelistfromlist(*list);
-    displayList(*list);
-    displayList(*list3);
+    displayListWithLevelAlignedDisplay(*list3);
+    printf("test");
+    printf(" val = %d", recherche_dicho(*list3,3));
+    /*
 
     //printf("%d val trouve ?\n",seekvaluedichotomique(*list3,7));
     FILE *log_file = fopen("log.txt","w");
@@ -169,6 +162,7 @@ int main() {
 
     }
     fclose(log_file);
+
     t_d_agenda_list * liste = createagenda();
     t_d_cell_contact *contact = createContact();
     t_d_cell_contact *contact2 = createContact();
@@ -193,11 +187,13 @@ int main() {
     addContactToAgenda(contact7,liste);
     complete_afficher_agenda(*liste);
     addContactToAgenda(contact8,liste);
-    complete_afficher_agenda(*liste);
+    complete_afficher_agenda(*liste);*/
 
+    //t_d_cell_contact * c = createContact();
+    //t_d_rdv_cell* rdv =createRdv(); //probleme de creation de rdv
+    //insertion_rendez_vous_contact(c,rdv);
+    //afficher_rendez_vous_contact(*c);
     //char fichier[] = "nom.txt";
     //ajouternomsfichier(fichier);
-
-    */
 }
 // zer -> sdf -> wxc-> aze

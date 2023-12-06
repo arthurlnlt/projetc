@@ -48,9 +48,11 @@ void addCelltoList(t_d_list* list,t_d_cell *cell);
 void addheadList(t_d_list* list,t_d_cell* cell);
 void displaylistwithlevel(t_d_list list, int level);
 int seekvalue(t_d_list list,int valeur_recherchee);
-int seekvaluedichotomique(t_d_list list,int valeur_recherchee);
 t_d_list *createonelistfromlist(t_d_list list);
 void displayListWithLevelAlignedDisplay(t_d_list list);
+
+int recherche_dicho(t_d_list mylist,int val);
+
 
 char *scanString();
 t_d_agenda_list * createagenda();
