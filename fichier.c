@@ -129,7 +129,7 @@ int seekvalue(t_d_list list,int val)
     return 0;
 }
 
-int recherche_dicho(t_d_list mylist, int val)
+int seekvaluedichotomique(t_d_list mylist, int val)
 {
     t_d_cell* temp;
     t_d_cell * prev;

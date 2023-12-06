@@ -127,11 +127,11 @@ int main() {
     t_d_list *list3= createonelistfromlist(*list);
     displayListWithLevelAlignedDisplay(*list3);
     printf("test");
-    printf(" val = %d", recherche_dicho(*list3,3));
-    /*
+    printf(" val = %d", seekvaluedichotomique(*list3,3));
 
-    //printf("%d val trouve ?\n",seekvaluedichotomique(*list3,7));
-    FILE *log_file = fopen("log.txt","w");
+
+    printf("%d val trouve ?\n",seekvaluedichotomique(*list3,7));
+    FILE *log_file = fopen("recherche100000valeurs.txt","w");
     char format[] = "%d\t%s\t%s\n" ;
     int level;
     char *time_lvl0;
@@ -142,7 +142,7 @@ int main() {
         t_d_list* liste = createList(i);
         liste = createonelistfromlist(*liste);
         startTimer();
-        for (int k = 0;k < 10000;k++) {
+        for (int k = 0;k < 100000;k++) {
             seekvalue(*liste, k);
         }
         stopTimer();
@@ -150,7 +150,7 @@ int main() {
         printf("Recherche classique :\n");
         displayTime();
         startTimer();
-        for (int k = 0;k < 10000;k++) {
+        for (int k = 1;k < 100000;k++) {
             seekvaluedichotomique(*liste,k);
         }
         stopTimer();
@@ -162,7 +162,7 @@ int main() {
 
     }
     fclose(log_file);
-
+/*
     t_d_agenda_list * liste = createagenda();
     t_d_cell_contact *contact = createContact();
     t_d_cell_contact *contact2 = createContact();

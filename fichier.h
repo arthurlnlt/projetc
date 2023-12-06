@@ -51,7 +51,7 @@ int seekvalue(t_d_list list,int valeur_recherchee);
 t_d_list *createonelistfromlist(t_d_list list);
 void displayListWithLevelAlignedDisplay(t_d_list list);
 
-int recherche_dicho(t_d_list mylist,int val);
+int seekvaluedichotomique(t_d_list mylist,int val);
 
 
 char *scanString();
