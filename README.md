@@ -7,7 +7,7 @@ une structure de données intermédiaire entre les listes chaînées et les arbr
 
 
 
-## Authors
+## Auteurs
 
 - [Arthur LAINAULT](https://github.com/arthurlnlt)
 - [Ryan CROHAS](https://github.com/RyanCro)
