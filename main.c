@@ -1,203 +1,177 @@
+//Auteur : GASNIER Mathieu LAINAULT Arthur et CROHAS Ryan groupe E
+
 #include <stdio.h>
 #include "fichier.h"
 #include <stdlib.h>
 #include "math.h"
 #include "timer.h"
 int main() {
-    // Liste à niveau vide
-    /*int i=0;
-    t_d_agenda_list* list=createagenda();
-    printf("Bienvenue sur l'AGENDA\n");
-    printf("Veuillez choisir une action :\n"
-           "1- Ajouter un contact\n"
-           "2- Ajouter un rendez-vous a un contact\n"
-           "3- Afficher la liste des contacts present dans l'agenda\n"
-           "4- Afficher les rendez-vous d'un contact\n"
-           "5- Supprimer un rendez-vous\n"
-           "6- Sauvegarder tout les rendez-vous d'un contact\n"
-           "7- Charger tout les rendez-vous d'un contact :\n"
-           "8- Rechercher un contact :\n"
-           "9- Afficher le menu : \n"
-           "10- Quitter l'agenda :\n");
-    while(i!=10)
+    printf("Bienvenue sur le fichier global \n tapez 1 pour la partie 1\n 2 pour la partie 2\n 3 pour la partie 3\n");
+    int nombrechoisi=0;
+    scanf("%d",&nombrechoisi);
+    if (nombrechoisi==1)
     {
-        scanf("%d",&i);
-        if (i==1)
+        printf("Bienvenue sur la partie 1 du projet : \n");
+        printf("Saisissez la hauteur de la liste:\n");
+        int k=0,x=0,y=0;
+        char c;
+        scanf("%d",&x);
+        t_d_list* list = createList(x);
+        t_d_cell* temp;
+        while(c!='a')
         {
-            t_d_cell_contact * contact = createContact();
-            addContactToAgenda(contact,list);
-        }
-        else if (i==2)
-        {
-            t_d_rdv_cell * rdv = createRdv();
-            scanf("Saisissez le nom du contact à rechercher :\n");
-            char * mot = scanString();
-            t_d_cell_contact *c = seekContact(*list,mot);
-            insertion_rendez_vous_contact(c,rdv);
-        }
-        else if (i==3)
-        {
-            complete_afficher_agenda(*list);
-        }
-        else if (i==4)
-        {
-            scanf("Saisissez le nom du contact à rechercher :\n");
-            char * mot = scanString();
-            //t_d_cell_contact * c = seekContact(*list,mot);
-            afficher_rendez_vous_contact(*seekContact(*list,mot));
-        }
-        else if (i==5)
-        {
-            printf("Vous voulez supprimer un rendez-vous, mais de quel contact ?\n");
-            char * mot = scanString();
-            t_d_cell_contact * c = seekContact(*list,mot);
-            scanf("Saisissez la date du rendez-vous a supprimer :\n");
-            int * date = (int*)malloc(3*sizeof(int));
-            printf("Ecrivez la date a supprimer sous la forme JOUR ");
-            scanf("%d",&date[0]);
-            printf("Ecrivez la date a supprimer sous la forme MOIS ");
-            scanf("%d",&date[1]);
-            printf("Ecrivez la date a supprimer sous la forme ANNEE ");
-            scanf("%d",&date[2]);
-            supprimer_rendez_vous(c->rendezvous,date);
-        }
-        else if (i==6)
-        {
+            printf("1 : permet de creer une cellule et de l'ajouter a la liste :\n"
+                   "2 : afficher la liste :\n"
+                   "3 : afficher la liste de maniere alignee :\n"
+                   "4 : Quitter le programme \n");
+            scanf("%d",&k);
+            switch(k){
+                case(1):
+                    printf("Entrez une valeur : ");
+                    scanf("%d",&x);
+                    printf("Entrez la hauteur de la cellule :\n");
+                    scanf("%d",&y);
+                    temp = createCell(x,y);
+                    addCelltoList(list,temp);
+                    break;
+                case(2):
+                    displayList(*list);
+                    break;
+                case(3):
+                    displayListWithLevelAlignedDisplay(*list);
+                    break;
+                case(4):
+                    printf("Sortie du programme\n");
+                    c='a';
+                    break;
+                default :
+                    printf("valeur depasse \n");
 
-        }
-        else if (i==7)
-        {
-
-        }
-        else if (i==8)
-        {
-            scanf("Saisissez le nom du contact à rechercher :\n");
-            char * mot = scanString();
-            //t_d_cell_contact * c = seekContact(*list,mot);
-            t_d_cell_contact *c = seekContact(*list,mot);
-            if (c!=NULL)
-            {
-                printf("Le contact est present dans la liste\n");
-            }
-            else
-            {
-                printf("Le contact n'est pas present dans la liste\n");
             }
         }
-        else if (i==9)
-        {
+    }
+    else if (nombrechoisi==2){
+        printf("Bienvenue sur la partie 2 du projet\n");
+        FILE *log_file = fopen("recherche100000valeurs.txt","w");
+        char format[] = "%d\t%s\t%s\n" ;
+        char *time_lvl0;
+        char *time_all_levels;
+        int i = 7;
+        while (i != 18) {
+            printf("Niveau testé : %d\n", i);
+            t_d_list* liste = createList(i);
+            liste = createonelistfromlist(*liste);
+            startTimer();
+            for (int k = 0;k < 100000;k++) {
+                seekvalue(*liste, k);
+            }
+            stopTimer();
+            time_lvl0 = getTimeAsString(); // fonction du module timer
+            printf("Recherche classique :\n");
+            displayTime();
+            startTimer();
+            for (int k = 1;k < 100000;k++) {
+                seekvaluedichotomique(*liste,k);
+            }
+            stopTimer();
+            time_all_levels = getTimeAsString();
+            fprintf(log_file, format, i, time_lvl0, time_all_levels);
+            printf("Recheche dichotomique :\n");
+            displayTime();
+            i++;
+
+        }
+        fclose(log_file);
+        return 0;
+    }
+    else
+    {
+        int i = 0;
+        char c = 'c';
+        t_d_rdv_cell* rdv;
+        t_d_cell_contact *contact;
+        t_d_cell_contact *contactarechercher;
+        t_d_agenda_list *list = createagenda();
+        printf("Bienvenue sur l'AGENDA\n");
+        while (c == 'c') {
             printf("Veuillez choisir une action :\n"
                    "1- Ajouter un contact\n"
                    "2- Ajouter un rendez-vous a un contact\n"
-                   "3- Afficher la liste des contacts present dans l'agenda\n"
-                   "4- Afficher les rendez-vous d'un contact\n"
-                   "5- Supprimer un rendez-vous\n"
-                   "6- Sauvegarder tout les rendez-vous d'un contact\n"
-                   "7- Charger tout les rendez-vous d'un contact :\n"
-                   "8- Rechercher un contact :\n"
-                   "9- Afficher le menu : \n"
-                   "10- Quitter l'agenda :\n");
+                   "3- Afficher les rendez-vous d'un contact\n"
+                   "4- Supprimer un rendez-vous\n"
+                   "5- Rechercher un contact :\n"
+                   "6- Quitter l'agenda :\n");
+            scanf("%d", &i);
+            switch (i) {
+                case (1):
+                    contact = createContact();
+                    sleep(5);
+                    addContactToAgenda(contact, list);
+                    break;
+                case (2):
+                    rdv = createRdv();
+                    sleep(10);
+                    printf("Saisissez le nom du contact à rechercher :\n");
+                    char *mot=scanString();
+                    sleep(10);
+                    t_d_cell_contact *contact2 = seekContact(*list, mot);
+                    if (contact2!=NULL)
+                    {
+                        insertion_rendez_vous_contact(contact2, rdv);
+                    }
+                    else
+                    {
+                        t_d_cell_contact *contact_a_ajouter = createContact();
+                        strcpy(contact_a_ajouter->nom,mot);
+                        addContactToAgenda(contact_a_ajouter,list);
+                        insertion_rendez_vous_contact(contact_a_ajouter,rdv);
+                    }
+                    break;
+                case (3):
+                    printf("Saisissez le nom du contact a rechercher :\n");
+                    char *mot1 = scanString();
+                    sleep(5);
+                    t_d_cell_contact *contact1 = seekContact(*list, mot1);
+                    if (contact1==NULL)
+                    {
+                        printf("ce contact n'a pas de rendez-vous\n");
+                    }
+                    else
+                    {
+                        afficher_rendez_vous_contact(*contact1);
+                    }
+                    break;
+                case (4):
+                    printf("Vous voulez supprimer un rendez-vous, mais de quel contact ?\n");
+                    char *mot2 = scanString();
+                    sleep(5);
+                    contact = seekContact(*list, mot2);
+                    printf("Saisissez la date du rendez-vous a supprimer sous la forme JOUR/MOIS/ANNEE:\n");
+                    int *date = (int *) malloc(3 * sizeof(int));
+                    scanf("%d/%d/%d",&date[0],&date[1],&date[2]);
+                    sleep(5);
+                    supprimer_rendez_vous(contact, date);
+                    break;
+                case (5):
+                    printf("Saisissez le nom du contact à rechercher :\n");
+                    char * mot3 = scanString();
+                    sleep(5);
+                    contactarechercher = seekContact(*list, mot3);
+                    if (contactarechercher == NULL)
+                        printf("Le contact n'est pas present dans la liste\n");
+                    else
+                        printf("Le contact est present dans la liste\n");
+                    break;
+                case (6):
+                    printf("Sortie du programme \n");
+                    c = 'a';
+                    break;
+                default:
+                    printf("La valeur n'a pas été reconnu\n");
+            }
         }
     }
 
-
-
-    printf("Liste a niveau vide :\n");
-    t_d_list* list = createList(3);
-    displayList(*list);
-
-    // Après insertion de cellules à niveau, affichage simple
-    printf("Apres insertion de cellules a niveau, affichage simple\n");
-    t_d_cell* temp = createCell(18,3);
-    t_d_cell* temp1 = createCell(25,1);
-    t_d_cell* temp2 = createCell(31,2);
-    t_d_cell* temp3 = createCell(32,2);
-    t_d_cell* temp4 = createCell(56,3);
-    t_d_cell* temp5 = createCell(59,2);
-    t_d_cell* temp6 = createCell(78,1);
-    t_d_cell* temp7 = createCell(94,3);
-    addheadList(list,temp);
-    addCelltoList(list,temp1);
-    addCelltoList(list,temp2);
-    addCelltoList(list,temp3);
-    addCelltoList(list,temp4);
-    addCelltoList(list,temp5);
-    addCelltoList(list,temp6);
-    addCelltoList(list,temp7);
-    t_d_list *list3= createonelistfromlist(*list);
-    displayListWithLevelAlignedDisplay(*list3);
-    printf("test");
-    printf("La valeur %d est-elle presente dans la liste ?  %d \n",3, seekvaluedichotomique(*list3,3));
-
-
-    printf("%d val trouve ?\n",seekvaluedichotomique(*list3,7));
-    FILE *log_file = fopen("recherche100000valeurs.txt","w");
-    char format[] = "%d\t%s\t%s\n" ;
-    int level;
-    char *time_lvl0;
-    char *time_all_levels;
-    int i = 7;
-    while (i != 18) {
-        printf("Niveau testé : %d\n", i);
-        t_d_list* liste = createList(i);
-        liste = createonelistfromlist(*liste);
-        startTimer();
-        for (int k = 0;k < 100000;k++) {
-            seekvalue(*liste, k);
-        }
-        stopTimer();
-        time_lvl0 = getTimeAsString(); // fonction du module timer
-        printf("Recherche classique :\n");
-        displayTime();
-        startTimer();
-        for (int k = 1;k < 100000;k++) {
-            seekvaluedichotomique(*liste,k);
-        }
-        stopTimer();
-        time_all_levels = getTimeAsString();
-        fprintf(log_file, format, i, time_lvl0, time_all_levels);
-        printf("Recheche dichotomique :\n");
-        displayTime();
-        i++;
-
-    }
-    fclose(log_file);
-
-    t_d_agenda_list * liste = createagenda();
-    t_d_cell_contact *contact = createContact();
-    t_d_cell_contact *contact2 = createContact();
-    t_d_cell_contact *contact3 = createContact();
-    t_d_cell_contact *contact4= createContact();
-    t_d_cell_contact *contact5 = createContact();
-    t_d_cell_contact *contact6 = createContact();
-    t_d_cell_contact *contact7 = createContact();
-    t_d_cell_contact *contact8= createContact();
-    addContactToAgenda(contact,liste);
-    complete_afficher_agenda(*liste);
-    addContactToAgenda(contact2,liste);
-    complete_afficher_agenda(*liste);
-    addContactToAgenda(contact3,liste);
-    complete_afficher_agenda(*liste);
-    addContactToAgenda(contact4,liste);
-    complete_afficher_agenda(*liste);
-    addContactToAgenda(contact5,liste);
-    complete_afficher_agenda(*liste);
-    addContactToAgenda(contact6,liste);
-    complete_afficher_agenda(*liste);
-    addContactToAgenda(contact7,liste);
-    complete_afficher_agenda(*liste);
-    addContactToAgenda(contact8,liste);
-    complete_afficher_agenda(*liste);
-    */
-
-
-    //char fichier[] = "nom.txt";
-    //ajouternomsfichier(fichier);
+    //char fichier[] = "nom.txt";     //fichier que l'on va récuperer
+    //ajouternomsfichier(fichier,liste);
 }
-/*    t_d_rdv_cell* rdv =createRdv();
-    insertion_rendez_vous_contact(c,rdv);
-    t_d_rdv_cell* rdv2 =createRdv();
-    insertion_rendez_vous_contact(c,rdv2);
-    t_d_rdv_cell* rdv3 =createRdv();
-    insertion_rendez_vous_contact(c,rdv3);
-    afficher_rendez_vous_contact(*c);*/
